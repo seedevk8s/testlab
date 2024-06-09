@@ -1,0 +1,14 @@
+[web]
+servera.test.com
+serverb.test.com
+
+[db]
+serverc.test.com
+
+[apm]
+serverd.test.com
+
+[webndb:children]
+web
+db
+

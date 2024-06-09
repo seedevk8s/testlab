@@ -1,0 +1,4 @@
+mysvc:
+  - httpd
+  - vsftpd
+  - mariadb

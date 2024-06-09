@@ -1,0 +1,37 @@
+---
+- name: test
+  hosts: serverd.test.com
+  vars_files:
+    - vars/install_pkg.yaml
+    - vars/mysvc.yaml
+  tasks:
+    - name: packages install
+      dnf:
+        name:
+          - "{{ web_pkg }}"
+          - "{{ db_pkg }}"
+          - "{{ lang_pkg }}"
+          - "{{ lang_db_pkg }}"
+          - "{{ ftp_pkg }}"
+        state: latest
+   
+    - name: start web service
+      ansible.builtin.service:
+        name: "{{ item }}"
+        state: started
+        enabled: yes
+      loop: "{{ mysvc }}"
+
+
+    - name: add firewall rule
+      ansible.posix.firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: true
+       
+    - name: copy index.php
+      ansible.builtin.copy:
+        src: ./index.php
+        dest: /var/www/html/index.php
+        mode: '0644'

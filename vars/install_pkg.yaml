@@ -1,0 +1,5 @@
+web_pkg: httpd
+db_pkg: mariadb-server
+lang_pkg: php 
+lang_db_pkg: php-mysqlnd
+ftp_pkg: vsftpd
